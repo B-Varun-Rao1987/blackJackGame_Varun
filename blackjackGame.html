@@ -116,6 +116,7 @@
                 res_btn.addEventListener('click', () => {
                     res_btn.style.display = 'none';
                 });
+
             }
             else {
                 messageEl.textContent = "You're out of the game :("
@@ -148,6 +149,7 @@
             sum = cards[0] + cards[1]
             new_btn.addEventListener('click', () => {
                 res_btn.style.display = 'block';
+                messageEl.textContent = "Want to play a round?"
             });
 
         }
