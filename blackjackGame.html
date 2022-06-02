@@ -83,6 +83,7 @@
         let isAlive = true
         let message = ""
         let sum = cards[0] + cards[1]
+        let flag = 1
         // let count = 2
 
         // king=10
@@ -93,8 +94,8 @@
         let cardEl = document.getElementById("card")
         let sumEl = document.getElementById("sum-el")
         // let numOfCards = cards.length
-        const res_btn = document.getElementById("newCard")
-        const new_btn = document.getElementById("resetGm")
+        const new_btn = document.getElementById("newCard")
+        const res_btn = document.getElementById("resetGm")
         // querySelector is more dynamic,has a broader range.So we are required to specify the selector that we want to hold refernce to.. 
 
         function renderGame() {
@@ -113,27 +114,24 @@
             else if (sum === 21) {
                 messageEl.textContent = "Wohoo!! You've got a BlackJack :)"
                 hasBlackJack = true
-                res_btn.addEventListener('click', () => {
-                    res_btn.style.display = 'none';
-                });
-
             }
             else {
                 messageEl.textContent = "You're out of the game :("
                 isAlive = false
-                res_btn.addEventListener('click', () => {
-                    res_btn.style.display = 'none';
-                });
             }
         }
         function newCard() {
-            if (sum < 21) {
-                let new_card = getRandomNumber()
-                sum += new_card
+
+            let new_card = getRandomNumber()
+            if (flag === 1 && sum < 21) {
                 cards.push(new_card)
-                // sum += cards[numOfCards++]
-                renderGame()
+                sum = sum + new_card
             }
+            if (sum >= 21 && flag === 1) {
+                flag = 0
+            }
+            // sum += cards[numOfCards++]
+            renderGame()
         }
 
         function resetGame() {
@@ -147,11 +145,8 @@
             cards = [firstCard
                 , secondCard]
             sum = cards[0] + cards[1]
-            new_btn.addEventListener('click', () => {
-                res_btn.style.display = 'block';
-                messageEl.textContent = "Want to play a round?"
-            });
-
+            flag = 1
+            messageEl.textContent = "Want to play a round?"
         }
 
         //We have to make this return a random Number between 1 and 13
